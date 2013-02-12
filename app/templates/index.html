@@ -1,0 +1,118 @@
+<div class="jumbotron">
+  <textarea READONLY style="width:100%; height: 12em; margin-top: -4em; position: absolute; left: 0; top: 0; z-index: 1; opacity: .98; ">{{client | json}}</textarea>
+  <h1>BB+ Config <em>pronto</em></h1>
+</div>
+
+
+<!-- Example row of columns -->
+<div class="row">
+
+  <div class="span8">
+<!--
+    <div>
+      <tabs>
+      <pane heading="Static title">Static content</pane>
+      <pane heading="Static title">Static content</pane>
+      <pane heading="Static title">Static content</pane>
+      </tabs>
+    </div>
+    -->
+
+    <div class="controls">
+
+      <h2>Configure your BB+ App</h2>
+
+      <form>
+        <h4>Client Name</h4>
+        <div class="input-append">
+          <input AUTOFOCUS type="text" ng-model="client.client_name">
+        </div>
+      </form>
+
+
+      <form name="tos_url">
+        <h4>Client Terms of Service URL</h4>
+        <div>
+          <input name="i" REQUIRED ng-model="client.tos_url" type="url">
+          <span ng-show="!tos_url.i.$error.required && !tos_url.i.$valid" class="help-inline">Need a valid URL</span>
+        </div>
+      </form>
+
+
+
+      <form name="logo_url">
+        <h4>Client Logo URL</h4>
+        <div>
+          <input name="i" REQUIRED type="url" ng-model="client.logo_url" ng-pattern="imgRegexp" /> <img ng-src="{{client.logo_url}}"></img>
+
+          <span ng-show="!logo_url.i.$error.required && !logo_url.i.$valid" class="help-inline">Need a valid URL</span>
+        </div>
+      </form>
+
+      <form name="redirect_uris">
+        <h4>Redirect URIs</h4>
+        <div class="input-append">
+          <input REQUIRED name="i" type="url" ng-model="newUri" focus-on-change="client.redirect_uris" >
+          <button ng-disabled="!redirect_uris.i.$valid" class="btn" ng-click="addUri(newUri)">Add</button>
+        </div>
+          <span ng-show="!redirect_uris.i.$error.required && !redirect_uris.i.$valid" class="help-inline">Need a valid https URL</span>
+        <ul>
+          <li ng-repeat="u in client.redirect_uris" ng-click="removeUri(u)">{{u}}
+          <i class="icon-remove" ></i></li>
+        </ul>
+      </form>
+
+      <form name="contacts">
+        <h4>Contact Emails</h4>
+        <div class="input-append">
+          <input REQUIRED name="i" type="email" ng-model="newContact" focus-on-change="client.contacts">
+          <button ng-disabled="!contacts.i.$valid" class="btn" ng-click="addContact(newContact)">Add</button>
+        </div>
+          <span ng-show="!contacts.i.$error.required && !contacts.i.$valid" class="help-inline">Need a valid email</span>
+
+        <ul>
+          <li ng-repeat="c in client.contacts" ng-click="removeContact(c)">{{c}}
+          <i class="icon-remove" ></i></li>
+        </ul>
+      </form>
+      <form>
+        <h4>Client Website URL</h4>
+        <div class="input-append">
+          <input type="url" ng-model="client.client_url">
+        </div>
+      </form>
+
+      <form>
+        <h4>Public or Confidential?</h4>
+        <select ng-model="clientType">
+          <option value="public">Public Client</option>
+          <option value="confidential">Confidential Client</option>
+        </select>
+        <dl class="dl-horizontal">
+          <dt>Public clients</dt> 
+          <dd>don't maintaining secrets from prying eyes.  Your app is probably a "public client" if it runs as a native app on an end-users computer, phone, or tablet.  It's also probably a "public client" if it's a pure HTML5/JavaScript app without a server-side component.  
+
+          <dt>Confidential clients</td>
+        <dd>maintain a secret safely away from end-uesrs.  Your app is a "confidential client" only if it can store its secret key within a secure server-side component.</dd>
+      </dl>
+    </form>
+
+    <form>
+      <h4>Token Endpoint Auth Method</h4>
+      <select ng-model="client.token_endpoint_auth_method">
+        <option 
+        ng-repeat="amethod in authMethods[clientType]"
+        value="{{amethod.value}}">{{amethod.title}}</option>
+      </select>
+      <dl class="dl-horizontal">
+        <div ng-repeat="t in authMethods.confidential">
+          <dt>{{t.value}}</dt>
+          <dd>{{t.definition}}</dd>
+        </div>
+      </dl>
+    </form>
+
+
+  </div>
+</div>
+</div>
