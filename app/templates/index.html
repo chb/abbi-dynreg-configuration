@@ -1,14 +1,8 @@
-<div class="jumbotron">
-  <textarea READONLY style="width:100%; height: 12em; margin-top: -4em; position: absolute; left: 0; top: 0; z-index: 1; opacity: .98; ">{{client | json}}</textarea>
-  <h1>BB+ Config <em>pronto</em></h1>
-</div>
+<div class="row-fluid">
 
+<div class="span6">
 
-<!-- Example row of columns -->
-<div class="row">
-
-  <div class="span8">
-<!--
+    <!--
     <div>
       <tabs>
       <pane heading="Static title">Static content</pane>
@@ -19,8 +13,6 @@
     -->
 
     <div class="controls">
-
-      <h2>Configure your BB+ App</h2>
 
       <form>
         <h4>Client Name</h4>
@@ -55,7 +47,7 @@
           <input REQUIRED name="i" type="url" ng-model="newUri" focus-on-change="client.redirect_uris" >
           <button ng-disabled="!redirect_uris.i.$valid" class="btn" ng-click="addUri(newUri)">Add</button>
         </div>
-          <span ng-show="!redirect_uris.i.$error.required && !redirect_uris.i.$valid" class="help-inline">Need a valid https URL</span>
+        <span ng-show="!redirect_uris.i.$error.required && !redirect_uris.i.$valid" class="help-inline">Need a valid https URL</span>
         <ul>
           <li ng-repeat="u in client.redirect_uris" ng-click="removeUri(u)">{{u}}
           <i class="icon-remove" ></i></li>
@@ -68,7 +60,7 @@
           <input REQUIRED name="i" type="email" ng-model="newContact" focus-on-change="client.contacts">
           <button ng-disabled="!contacts.i.$valid" class="btn" ng-click="addContact(newContact)">Add</button>
         </div>
-          <span ng-show="!contacts.i.$error.required && !contacts.i.$valid" class="help-inline">Need a valid email</span>
+        <span ng-show="!contacts.i.$error.required && !contacts.i.$valid" class="help-inline">Need a valid email</span>
 
         <ul>
           <li ng-repeat="c in client.contacts" ng-click="removeContact(c)">{{c}}
@@ -99,10 +91,9 @@
 
     <form>
       <h4>Token Endpoint Auth Method</h4>
-      <select ng-model="client.token_endpoint_auth_method">
-        <option 
-        ng-repeat="amethod in authMethods[clientType]"
-        value="{{amethod.value}}">{{amethod.title}}</option>
+      <select ng-model="client.token_endpoint_auth_method" 
+        ng-options="c.value as c.title for c in authMethods[clientType]"
+      >
       </select>
       <dl class="dl-horizontal">
         <div ng-repeat="t in authMethods.confidential">
@@ -115,4 +106,34 @@
 
   </div>
 </div>
+
+<div class="span6">
+<div class="jumbotron">
+  <pre style="min-height: 15em; opacity: .95">{{client|json}}</pre>
+  <h1>BB+ Config <em>pronto</em></h1>
+  <button style="" ng-click="loadDemo()" class="btn">load demo</button>
+</div>
+<button class="btn" ng-click="saveJson()">Save Registration Snippet</button>
+
+<div style="height:2em;"></div>
+
+<div class="jumbotron">
+  <textarea ng-model="pem" style="width: 100%; box-sizing: border-box; min-height: 15em; opacity: .95;"> </textarea>
+  <h1>Paste RSA Key</h1>
+</div>
+<button class="btn" ng-click="signJson()">Sign Registration Snippet</button>
+
+<div style="height:2em;"></div>
+
+<div class="jumbotron">
+  <pre style="min-height: 15em; opacity: .95">{{jwt}}</pre>
+  <h1>Signed JWT <em>stat</em></h1>
+</div>
+<button class="btn" ng-click="saveJWT()">Save Signed JWT</button>
+&nbsp;&nbsp;<a target="_blank" href="https://developers.google.com/commerce/wallet/digital/docs/jwtdecoder">Handy Decoder</a>
+
+
+</div>
+</div>
+
 </div>

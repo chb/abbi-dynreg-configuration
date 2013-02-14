@@ -12,37 +12,34 @@
     <script src="../assets/angular/angular.js"></script>
     <script src="../assets/angular/angular-resource.js"></script>
     <script src="../assets/ui-bootstrap-0.1.0.js"></script>
+    <script src="../assets/FileSaver.js"></script>
+    <script src="../assets/jwcrypto.js"></script>
     <script src="controllers.js"></script>
 
     <link href="../assets/bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 20px;
-        padding-bottom: 40px;
       }
 
       /* Custom container */
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 700px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
-
       /* Main marketing message and sign up button */
       .jumbotron {
         position: relative;
-        margin: 60px 0;
         text-align: center;
       }
-      .jumbotron h1 {
+      .jumbotron pre{
+        text-align: left;
+      }
+       .jumbotron h1 {
+         position: absolute; left: 0px; top: 0px;
+         z-index: -1;
         font-size: 72px;
         line-height: 1;
       }
       .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
+        position: absolute;
+        top:0px;
+        right:0px;
       }
 
       /* Supporting marketing content */
@@ -70,7 +67,7 @@
 
   <body>
 
-    <div ng-app="bbConfig" class="container-narrow">
+    <div ng-app="bbConfig" class="container-fluid">
 
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
