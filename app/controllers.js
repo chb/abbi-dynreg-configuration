@@ -25,6 +25,10 @@ angular.module('bbConfig').controller("MainController",
 
     $scope.imgRegexp = RegExp("\.(png|gif|jpg|svg)$", "i");
 
+    $scope.$watch("client", function(cnew, cold){
+      $scope.jwt = "";  
+    }, true);
+
     function addX(list){
       return function(u){
         if (!client[list]){ 
